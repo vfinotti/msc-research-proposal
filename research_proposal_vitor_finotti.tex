@@ -72,7 +72,23 @@
 % ---
 % Pacotes de citações
 % ---
-\usepackage[alf]{abntex2cite}	% Citações padrão ABNT
+\usepackage[
+    style=abnt,
+    %style=authoryear,
+    %citestyle=authoryear,
+    %bibstyle=authortitle,
+    %sorting=ynt,
+    %backend=bibtex,
+    %clearlang=true,
+    %language=english,
+    %natbib=true,
+    %maxbibnames=99,
+    %noslsn=true,
+    %firstinits=true,
+    %block=ragged,
+    %ittitles,
+    ]{biblatex}	% Citações padrão ABNT
+\addbibresource{biblio_biblatex.bib}
 
 % ---
 % Informações de dados para CAPA e FOLHA DE ROSTO
@@ -354,12 +370,8 @@ Some studies show that FPGAs could outperform GPUs on next generations, using th
 % Referências bibliográficas
 % ----------------------------------------------------------
 
-\bibliography{biblio}
-%\nocite{farabet2011large,
-%        friedman2009elements,
-%        james2013introduction,
-%        ovtcharov2015accelerating,
-%        russell2003modern}
+%\bibliography{biblio}
+\printbibliography
 
 % ---
 
