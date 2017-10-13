@@ -1,0 +1,344 @@
+%% abtex2-modelo-projeto-pesquisa.tex, v<VERSION> laurocesar
+%% Copyright 2012-<COPYRIGHT_YEAR> by abnTeX2 group at http://www.abntex.net.br/
+%%
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%   http://www.latex-project.org/lppl.txt
+%% and version 1.3 or later is part of all distributions of LaTeX
+%% version 2005/12/01 or later.
+%%
+%% This work has the LPPL maintenance status `maintained'.
+%%
+%% The Current Maintainer of this work is the abnTeX2 team, led
+%% by Lauro César Araujo. Further information are available on
+%% http://www.abntex.net.br/
+%%
+%% This work consists of the files abntex2-modelo-projeto-pesquisa.tex
+%% and abntex2-modelo-references.bib
+%%
+
+% ------------------------------------------------------------------------
+% ------------------------------------------------------------------------
+% abnTeX2: Modelo de Projeto de pesquisa em conformidade com
+% ABNT NBR 15287:2011 Informação e documentação - Projeto de pesquisa -
+% Apresentação
+% ------------------------------------------------------------------------
+% ------------------------------------------------------------------------
+
+\documentclass[
+	% -- opções da classe memoir --
+	12pt,				% tamanho da fonte
+	%openright,			% capítulos começam em pág ímpar (insere página vazia caso preciso)
+	oneside,			% para impressão em recto e verso. Oposto a oneside
+	a4paper,			% tamanho do papel.
+	% -- opções da classe abntex2 --
+	%chapter=TITLE,		% títulos de capítulos convertidos em letras maiúsculas
+	%section=TITLE,		% títulos de seções convertidos em letras maiúsculas
+	%subsection=TITLE,	% títulos de subseções convertidos em letras maiúsculas
+	%subsubsection=TITLE,% títulos de subsubseções convertidos em letras maiúsculas
+	% -- opções do pacote babel --
+	english,			% idioma adicional para hifenização
+	french,				% idioma adicional para hifenização
+	spanish,			% idioma adicional para hifenização
+	brazil,				% o último idioma é o principal do documento
+	]{abntex2}
+
+% ---
+% PACOTES
+% ---
+
+% ---
+% Pacotes fundamentais
+% ---
+\usepackage{lmodern}			% Usa a fonte Latin Modern
+\usepackage[T1]{fontenc}		% Selecao de codigos de fonte.
+\usepackage[utf8]{inputenc}		% Codificacao do documento (conversão automática dos acentos)
+\usepackage{indentfirst}		% Indenta o primeiro parágrafo de cada seção.
+\usepackage{color}				% Controle das cores
+\usepackage{graphicx}			% Inclusão de gráficos
+\usepackage{microtype} 			% para melhorias de justificação
+% ---
+
+% ---
+% Pacotes adicionais
+% ---
+\usepackage{pdflscape}
+\usepackage{adjustbox}
+\usepackage{xcolor}
+\color{blue}
+% ---
+
+% ---
+% Pacotes de citações
+% ---
+\usepackage[alf]{abntex2cite}	% Citações padrão ABNT
+
+% ---
+% Informações de dados para CAPA e FOLHA DE ROSTO
+% ---
+\titulo{Algoritmos de aprendizado de máquina aplicados em FPGAs}
+\autor{Vitor Finotti Ferreira}
+\local{São Paulo}
+\data{2017 - $3^{o}$ Período}
+\instituicao{%
+  Universidade de São Paulo
+  \par
+  Escola Politécnica
+  \par
+  Programa de Pós-Graduação - Engenharia de Computação e Sistemas Digitais}
+\tipotrabalho{Dissetação (Mestrado)}
+% O preambulo deve conter o tipo do trabalho, o objetivo,
+% o nome da instituição e a área de concentração
+\preambulo{Proposta de dissertação de mestrado sobre a implementação de algorítmos de aprendizado de máquina no contexto de Field Programable Gate Arrays.}
+% ---
+
+% ---
+% Configurações de aparência do PDF final
+
+% alterando o aspecto da cor azul
+\definecolor{blue}{RGB}{41,5,195}
+
+% informações do PDF
+\makeatletter
+\hypersetup{
+     	%pagebackref=true,
+		pdftitle={\@title},
+		pdfauthor={\@author},
+    	pdfsubject={\imprimirpreambulo},
+	    pdfcreator={LaTeX with abnTeX2},
+		pdfkeywords={abnt}{latex}{abntex}{abntex2}{projeto de pesquisa},
+		colorlinks=true,       		% false: boxed links; true: colored links
+    	linkcolor=blue,          	% color of internal links
+    	citecolor=blue,        		% color of links to bibliography
+    	filecolor=magenta,      		% color of file links
+		urlcolor=blue,
+		bookmarksdepth=4
+}
+\makeatother
+% ---
+
+% ---
+% Espaçamentos entre linhas e parágrafos
+% ---
+
+% O tamanho do parágrafo é dado por:
+\setlength{\parindent}{1.3cm}
+
+% Controle do espaçamento entre um parágrafo e outro:
+\setlength{\parskip}{0.2cm}  % tente também \onelineskip
+
+% ---
+% compila o indice
+% ---
+\makeindex
+% ---
+
+% ----
+% Início do documento
+% ----
+\begin{document}
+
+% Seleciona o idioma do documento (conforme pacotes do babel)
+%\selectlanguage{english}
+\selectlanguage{brazil}
+
+% Retira espaço extra obsoleto entre as frases.
+\frenchspacing
+
+% ----------------------------------------------------------
+% ELEMENTOS PRÉ-TEXTUAIS
+% ----------------------------------------------------------
+% \pretextual
+
+% ---
+% Capa
+% ---
+\imprimircapa
+% ---
+
+% ---
+% Folha de rosto
+% ---
+\imprimirfolhaderosto
+% ---
+
+% ---
+% NOTA DA ABNT NBR 15287:2011, p. 4:
+%  ``Se exigido pela entidade, apresentar os dados curriculares do autor em
+%     folha ou página distinta após a folha de rosto.''
+% ---
+
+% ---
+% inserir o sumario
+% ---
+%\pdfbookmark[0]{\contentsname}{toc}
+%\tableofcontents*
+%\cleardoublepage
+% ---
+
+
+% ----------------------------------------------------------
+% ELEMENTOS TEXTUAIS
+% ----------------------------------------------------------
+\textual
+
+% ----------------------------------------------------------
+% Introdução
+% ----------------------------------------------------------
+
+\chapter*[Contextualização e Justificativa]{Contextualização e Justificativa}
+O desenvolvimento no campo de aprendizado de máquina nos últimos anos
+fez com que estes algoritmos se popularizassem, sendo aplicados nas mais
+diversas áreas do conhecimento e indústria. Utilizando-se do treinamento
+feito com conjunto adequado de amostras, aplicados em um modelo
+apropriado, é possível obter resultados iguais ou superiores aos
+adquiridos por análise humana a um mesmo problema.
+
+Existem situações, contudo, nas quais as próprias características do
+problema exigem que um hardware específico seja usado no treinamento ou
+na inferência de um algoritmo, tanto para melhorar o desempenho da rede
+quanto para satisfazer um critério de latência de processamento. Neste
+contexto, os Field Programmable Gate Arrays (FPGAs) podem oferecer uma
+plataforma interessante por conta de sua reconfigurabilidade, grande
+I/O, paralelismo e consumo energético inferior à tecnologias
+concorrentes.
+
+Este projeto se propõe a investigar a aplicação destes algoritmos em
+FPGAs, analisando as características em termos de desempenho, buscando
+também situações que possam se beneficiar especialmente pelo uso delas.
+
+\chapter*[Objetivos]{Objetivos}
+Os objetivos principais desta dissertação de mestrado são:
+\begin{enumerate}
+    \item Compreender os fundamentos teóricos de aprendizado
+      de máquina e inteligência artificial
+    \item Adequar algoritmos para o contexto da FPGA, adaptando as etapas de
+      aplicação às características do processamento de hardware de baixo
+      nível
+    \item Buscar aplicações que possam ser particularmente favorecidas pelo
+      uso de FPGAs no contexto de aprendizado de máquina
+    \item Avaliar o desempenho dos algoritmos na FPGA e fazer uma comparação
+      com a performance em outros hardwares
+\end{enumerate}
+
+\chapter*[Metodologia]{Metodologia}
+A metodologia de estudo consistirá em:
+\begin{enumerate}
+    \item Aprofundar os estudos das teorias de análise estatística,
+      algoritmos de aprendizado de máquina e desenvolvimento de hardware em
+      FPGAs
+    \item Analisar diversas aplicações para aprendizado de máquina com
+      características que favoreçam o uso de FPGAs
+    \item Implementar uma rede em uma placa FPGA, com uso real ou emulação
+      de entradas
+    \item Validar a implementação através de simulações e testes empíricos
+\end{enumerate}
+	
+\chapter*[Recursos Utilizados]{Recursos Utilizados}
+A proposta é desenvolver o projeto utilizando ferramentas \textit{open
+ source} para diminuir o custo de implementação e facilitar a
+disseminação da tecnologia criada sempre que possível.
+Para a fase de desenvolvimento, um computador com sistema operacional
+Linux e \textit{softwares} de desenvolvimento de sistemas como Python,
+R, VHDL, Emacs entre outros. Dado que muitas vezes é necessário usar
+\textit{softwares} específicos para FPGAs de um fabricante, pode ser
+necessário usar softwares privados para a simulação e desenvolvimento.
+Almeja-se usar \textit{evaluation boards} de FPGAs para fazer proveito
+de toda a infraestrutura e recursos disponibilizados por elas, se
+possível com modelos atuais. Planeja-se procurar diversas bibliotecas
+\textit{open source} para reutilização de código, tanto para as etapas
+de estudo de algoritmos de aprendizado de máquina quanto para a
+implementação dos mesmos em FPGA. Também pretende-se utilizar a
+infraestrutura dos laboratórios da Escola Politécnica e para
+desenvolvimento e validação do trabalho feito.
+        
+\chapter*[Cronograma Previsto]{Cronograma Previsto}
+\begin{enumerate}
+	\item Disciplina 1; %item 1
+	\item Disciplina 2; %item 2
+	\item Disciplina 3; %item 3
+	\item Disciplina 4; %item 4
+	\item Disciplina 5; %item 5
+	\item Pesquisa bibliográfica; %item 6
+	\item Análise da aplicação; %item 7
+	\item Implementação do sistema; %item 8
+	\item Validação do sistema; %item 9
+	\item Exame de qualificação; %item 10
+	\item Escrita da tese; %item 11
+	\item Defesa da tese; %item 12
+	\item Revisão/comentários; %item 13
+	\item Preparação de artigos e participação em congressos; %item 14
+\end{enumerate}
+
+\begin{landscape}
+	\centering
+\begin{adjustbox}{width=\textheight, totalheight=\textwidth,keepaspectratio}
+%\begin{table}
+%	\caption{Cronograma de desenvolvimento do projeto}\label{cronograma}
+%	\vspace{.3cm}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+	\hline
+	\raisebox{0pt}[12pt][6pt]  & \multicolumn{4}{|c|}{2017} & \multicolumn{12}{|c|}{2018} & \multicolumn{8}{|c|}{2019} \\
+	\hline
+	\raisebox{0pt}[12pt][6pt]	        &S&O&N&D&J&F&M&A&M&J&J&A&S&O&N&D&J&F&M&A&M&J&J&A\\
+	\hline
+	\raisebox{0pt}[12pt][6pt]{Item 1}	&X&X&X&X& & & & & & & & & & & & & & & & & & & & \\
+	\hline
+	\raisebox{0pt}[12pt][6pt]{Item 2}       & & & & & &X&X&X&X&X& & & & & & & & & & & & & & \\
+	\hline
+	\raisebox{0pt}[12pt][6pt]{Item 3}	& & & & & & & & & &X&X&X&X& & & & & & & & & & & \\
+	\hline
+	\raisebox{0pt}[12pt][6pt]{Item 4}       & & & & & & & & & & & & &X&X&X&X& & & & & & & & \\
+	\hline
+	\raisebox{0pt}[12pt][6pt]{Item 5}       & & & & & & & & & & & & & & & & & &X&X&X&X&X& & \\
+	\hline
+	\raisebox{0pt}[12pt][6pt]{Item 6}	& & & & &X&X&X& & & & & & & & & & & & & & & & & \\
+	\hline
+	\raisebox{0pt}[12pt][6pt]{Item 7}	& & & & & & & & & &X&X&X& & & & & & & & & & & & \\
+	\hline
+	\raisebox{0pt}[12pt][6pt]{Item 8}       & & & & & & & & & & & & &X&X&X&X&X&X&X& & & & & \\
+	\hline
+	\raisebox{0pt}[12pt][6pt]{Item 9}       & & & & & & & & & & & & & &X&X&X&X&X&X& & & & & \\
+	\hline
+	\raisebox{0pt}[12pt][6pt]{Item 10}      & & & & & & & & & & &X&X& & & & & & & & & & & & \\
+	\hline
+	\raisebox{0pt}[12pt][6pt]{Item 11}	& & & & & & & & & & & & & & & & &X&X&X&X& & & & \\
+	\hline
+	\raisebox{0pt}[12pt][6pt]{Item 12}      & & & & & & & & & & & & & & & & & & & &X&X& & & \\
+	\hline
+	\raisebox{0pt}[12pt][6pt]{Item 13}      & & & & & & & & & & & & & & & & & & & & & &X&X& \\
+	\hline
+	\raisebox{0pt}[12pt][6pt]{Item 14}      & & & & & & & & & & & & & & & & & & & &X&X&X&X&X\\
+	\hline
+\end{tabular}
+%\end{table}
+\end{adjustbox}
+\end{landscape}
+
+
+% ----------------------------------------------------------
+% ELEMENTOS PÓS-TEXTUAIS
+% ----------------------------------------------------------
+\postextual
+
+% ----------------------------------------------------------
+% Referências bibliográficas
+% ----------------------------------------------------------
+
+\bibliography{biblio}
+\nocite{farabet2011large,
+        friedman2009elements,
+        james2013introduction,
+        ovtcharov2015accelerating,
+        russell2003modern}
+
+% ---
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

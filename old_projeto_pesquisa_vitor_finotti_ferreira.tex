@@ -1,0 +1,258 @@
+%%%%%% Configuraçãoo do documento
+% Estilo
+\documentclass[a4paper,11pt,oneside]{article}
+% Tipo
+\usepackage[quali]{engele_ufscarTCC}   % eesc.sty
+% Bibliografia
+%\bibliographystyle{plain}    %eesc.stb
+\usepackage[style=numeric,backend=biber]{biblatex}
+\addbibresource{biblio.bib}
+
+% Cabe�alho
+\usepackage{doublespace}
+\usepackage{fancyheadings}   %para colocar a linha do cabecalho da pagina com o numero da pagina
+\pagestyle{headings}
+\setlength{\headwidth}{\textwidth} % comprimento da linha = largura do texto na pagina
+\headrulewidth 0.4pt   % espessura da linha
+% Nota de rodapé
+\lfoot{}
+\cfoot{}
+\rfoot{}
+\interfootnotelinepenalty=10000 % Para a nota de rodapé sempre caber na página
+\raggedbottom                   % em que ela foi referenciada
+
+
+%%%%% Pacotes especiais
+\usepackage[english,brazil]{babel}   % Idiomas
+\usepackage[latin1]{inputenc}   % Acentuação
+\usepackage{amsmath}   % Caracteres matemáticos
+\usepackage{amsfonts}   % Fontes para conjuntos R,Z,N
+\usepackage{amssymb}
+\usepackage{theorem}
+\usepackage{graphicx} % Importar figuras
+\usepackage{longtable}   % Tabelas que ultrapassam a página
+\usepackage{hyperref}   % Referência no PDF
+\usepackage{wrapfig} %Permite colocar figuras ao lado do texto
+\usepackage{floatflt}
+\usepackage{bm}
+\usepackage{subfig}
+\usepackage{pdflscape}
+\usepackage{adjustbox}
+%\newtheorem{lem}{Lema}[section]
+%\newtheorem{defn}{Definição}[section]
+\newtheorem{lem}{Lema}[section]
+\newtheorem{defi}{Definição}[section]
+\newtheorem{teo}{Teorema}[section]
+\newtheorem{cor}{Corolário}[section]
+\newtheorem{proof}{Prova}
+\newtheorem{rem}{Observação}
+\newtheorem{assumption}{H}
+
+%%%%% In�cio do documento
+\pagestyle{empty}
+\begin{document}
+
+%	% Capa
+%	\maketitle
+%	\newpage
+%	.
+%	\newpage
+%
+%	% Paginação no cabeçalho do lado direito
+%	\lhead[\footnotesize \thepage]{}
+%	\rhead[]{\footnotesize\thepage}
+%	\cleardoublepage{\pagestyle{empty}\cleardoublepage}
+
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	%%% Corpo de texto (Capítulos)
+
+	%\section{Introdução ao problema}
+	\sffamily
+	\singlespace
+	\section{Nome completo do candidato}
+	\vspace{-1cm}
+	\noindent\hrulefill
+
+	Vitor Finotti Ferreira
+
+	\sffamily
+	\section{T�tulo do projeto de pesquisa}
+	\vspace{-1cm}
+	\noindent\hrulefill
+
+	Algoritmos de aprendizado de m�quina aplicados em FPGAs
+
+	\section{Per�odo e ano do processo de sele��o ao ingresso na P�s-Gradua��o da Engenharia El�trica}
+	\vspace{-1cm}
+	\noindent\hrulefill
+
+	3� per�odo de 2017
+
+	\section{Contextualiza��o e Justificativa}
+	\vspace{-1cm}
+	\noindent\hrulefill
+
+        O desenvolvimento no campo de aprendizado de m�quina nos �ltimos anos
+        fez com que estes algoritmos se popularizassem, sendo aplicados nas mais
+        diversas �reas do conhecimento e ind�stria. Utilizando-se do treinamento
+        feito com conjunto adequado de amostras, aplicados em um modelo
+        apropriado, � poss�vel obter resultados iguais ou superiores aos
+        adquiridos por an�lise humana a um mesmo problema.
+
+        Existem situa��es, contudo, nas quais as pr�prias caracter�sticas do
+        problema exigem que um hardware espec�fico seja usado no treinamento ou
+        na infer�ncia de um algoritmo, tanto para melhorar o desempenho da rede
+        quanto para satisfazer um crit�rio de lat�ncia de processamento. Neste
+        contexto, os Field Programmable Gate Arrays (FPGAs) podem oferecer uma
+        plataforma interessante por conta de sua reconfigurabilidade, grande
+        I/O, paralelismo e consumo energ�tico inferior � tecnologias
+        concorrentes.
+
+        Este projeto se prop�e a investigar a aplica��o destes algoritmos em
+        FPGAs, analisando as caracter�sticas em termos de desempenho, buscando
+        tamb�m situa��es que possam se beneficiar especialmente pelo uso delas.
+
+        \section{Objetivos}
+	\vspace{-1cm}
+	\noindent\hrulefill
+
+        	Os objetivos principais desta disserta��o de mestrado s�o:
+	\begin{enumerate}
+        \item Compreender os fundamentos te�ricos de aprendizado
+          de m�quina e intelig�ncia artificial
+        \item Adequar algoritmos para o contexto da FPGA, adaptando as etapas de
+          aplica��o �s caracter�sticas do processamento de hardware de baixo
+          n�vel
+        \item Buscar aplica��es que possam ser particularmente favorecidas pelo
+          uso de FPGAs no contexto de aprendizado de m�quina
+        \item Avaliar o desempenho dos algoritmos na FPGA e fazer uma compara��o
+          com a performance em outros hardwares
+	\end{enumerate}
+
+	\section{Metodologia}
+	\vspace{-1cm}
+	\noindent\hrulefill
+
+	A metodologia de estudo consistir� em:
+	\begin{enumerate}
+        \item Aprofundar os estudos das teorias de an�lise estat�stica,
+          algoritmos de aprendizado de m�quina e desenvolvimento de hardware em
+          FPGAs
+        \item Analisar diversas aplica��es para aprendizado de m�quina com
+          caracter�sticas que favore�am o uso de FPGAs
+        \item Implementar uma rede em uma placa FPGA, com uso real ou emula��o
+          de entradas
+        \item Validar a implementa��o atrav�s de simula��es e testes emp�ricos
+	\end{enumerate}
+
+	\section{Recursos que pretende utilizar}
+	\vspace{-1cm}
+	\noindent\hrulefill
+
+	A proposta � desenvolver o projeto utilizando ferramentas \textit{open
+          source} para diminuir o custo de implementa��o e facilitar a
+        dissemina��o da tecnologia criada sempre que poss�vel.
+
+	Para a fase de desenvolvimento, um computador com sistema operacional
+        Linux e \textit{softwares} de desenvolvimento de sistemas como Python,
+        R, VHDL, Emacs entre outros. Dado que muitas vezes � necess�rio usar
+        \textit{softwares} espec�ficos para FPGAs de um fabricante, pode ser
+        necess�rio usar softwares privados para a simula��o e desenvolvimento.
+        Almeja-se usar \textit{evaluation boards} de FPGAs para fazer proveito
+        de toda a infraestrutura e recursos disponibilizados por elas, se
+        poss�vel com modelos atuais. Planeja-se procurar diversas bibliotecas
+        \textit{open source} para reutiliza��o de c�digo, tanto para as etapas
+        de estudo de algoritmos de aprendizado de m�quina quanto para a
+        implementa��o dos mesmos em FPGA. Tamb�m pretende-se utilizar a
+        infraestrutura dos laborat�rios da Escola Polit�cnica e para
+        desenvolvimento e valida��o do trabalho feito.
+
+	\section{Cronograma previsto} \label{sec:cronograma}\vspace{-1cm}
+	\noindent\hrulefill
+	%\setcounter{section}{20}
+
+\begin{landscape}
+	\centering
+\begin{adjustbox}{width=\textheight, totalheight=\textwidth,keepaspectratio}
+%\begin{table}
+%	\caption{Cronograma de desenvolvimento do projeto}\label{cronograma}
+%	\vspace{.3cm}
+	\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+		\hline
+		\raisebox{0pt}[12pt][6pt]  & \multicolumn{4}{|c|}{2017} & \multicolumn{12}{|c|}{2018} & \multicolumn{8}{|c|}{2019} \\
+		\hline
+		\raisebox{0pt}[12pt][6pt]	        &S&O&N&D&J&F&M&A&M&J&J&A&S&O&N&D&J&F&M&A&M&J&J&A\\
+		\hline
+		\raisebox{0pt}[12pt][6pt]{Item 1}	&X&X&X&X& & & & & & & & & & & & & & & & & & & & \\
+		\hline
+		\raisebox{0pt}[12pt][6pt]{Item 2}       & & & & & &X&X&X&X&X& & & & & & & & & & & & & & \\
+		\hline
+		\raisebox{0pt}[12pt][6pt]{Item 3}	& & & & & & & & & &X&X&X&X& & & & & & & & & & & \\
+		\hline
+		\raisebox{0pt}[12pt][6pt]{Item 4}       & & & & & & & & & & & & &X&X&X&X& & & & & & & & \\
+		\hline
+		\raisebox{0pt}[12pt][6pt]{Item 5}       & & & & & & & & & & & & & & & & & &X&X&X&X&X& & \\
+		\hline
+		\raisebox{0pt}[12pt][6pt]{Item 6}	& & & & &X&X&X& & & & & & & & & & & & & & & & & \\
+		\hline
+		\raisebox{0pt}[12pt][6pt]{Item 7}	& & & & & & & & & &X&X&X& & & & & & & & & & & & \\
+		\hline
+		\raisebox{0pt}[12pt][6pt]{Item 8}       & & & & & & & & & & & & &X&X&X&X&X&X&X& & & & & \\
+		\hline
+		\raisebox{0pt}[12pt][6pt]{Item 9}       & & & & & & & & & & & & & &X&X&X&X&X&X& & & & & \\
+		\hline
+		\raisebox{0pt}[12pt][6pt]{Item 10}      & & & & & & & & & & &X&X& & & & & & & & & & & & \\
+		\hline
+		\raisebox{0pt}[12pt][6pt]{Item 11}	& & & & & & & & & & & & & & & & &X&X&X&X& & & & \\
+		\hline
+		\raisebox{0pt}[12pt][6pt]{Item 12}      & & & & & & & & & & & & & & & & & & & &X&X& & & \\
+		\hline
+		\raisebox{0pt}[12pt][6pt]{Item 13}      & & & & & & & & & & & & & & & & & & & & & &X&X& \\
+		\hline
+		\raisebox{0pt}[12pt][6pt]{Item 14}      & & & & & & & & & & & & & & & & & & & &X&X&X&X&X\\
+		\hline
+	\end{tabular}
+%\end{table}
+\end{adjustbox}
+\end{landscape}
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\begin{enumerate}
+		\item Disciplina 1; %item 1
+		\item Disciplina 2; %item 2
+		\item Disciplina 3; %item 3
+		\item Disciplina 4; %item 4
+		\item Disciplina 5; %item 5
+		\item Pesquisa bibliogr�fica; %item 6
+		\item An�lise da aplica��o; %item 7
+		\item Implementa��o do sistema; %item 8
+		\item Valida��o do sistema; %item 9
+		\item Exame de qualifica��o; %item 10
+		\item Escrita da tese; %item 11
+		\item Defesa da tese; %item 12
+		\item Revis�o/coment�rios; %item 13
+		\item Prepara��o de artigos e participa��o em congressos; %item 14
+	\end{enumerate}
+
+	\newpage
+	\nocite{*}
+        \printbibliography
+	%\bibliography{biblio}
+
+	% \newpage
+	% \section{Assinatura do candidato}
+	% \vspace{-1cm}
+	% \noindent\hrulefill
+
+	% \centering
+	% \begin{figure}[!h]
+	% 	\centering
+	% 	\includegraphics[height=1cm]{AssDigital_IsabellaStevani}
+	% \end{figure}
+	% Data: 14 de novembro de 2016 \\
+	% Candidato: Isabella Stevani \\
+
+\end{document}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
