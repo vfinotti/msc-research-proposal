@@ -1,2 +1,2 @@
 # msc-research-proposal
-MSc. Research Proposal
+Repository containing the research proposal for my Master of Science thesis.
