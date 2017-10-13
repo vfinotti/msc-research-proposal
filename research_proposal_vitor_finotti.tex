@@ -379,6 +379,36 @@ Some studies show that FPGAs could outperform GPUs on next generations, using th
 \end{adjustbox}
 \end{landscape}
 
+
+\begin{landscape}
+\begin{ganttchart}[vgrid, hgrid]{1}{24}
+\gantttitle{2017}{4}
+\gantttitle{2018}{12}
+\gantttitle{2019}{8}\\
+% \gantttitlelist{1,...,36}{1}\\
+\gantttitlelist{9,10,11,12,1,2,3,4,5,6,7,8,9,10,11,12,1,2,3,4,5,6,7,8}{1}\\
+%First Group
+\ganttgroup{Disciplines}{1}{16} \\
+\ganttbar{Discipline 1}{1}{4} \\
+\ganttbar{Discipline 2}{1}{4} \\
+\ganttbar{Discipline 3}{5}{9} \\
+\ganttbar{Discipline 4}{10}{12} \\
+\ganttbar{Discipline 5}{13}{16} \\
+%\ganttlink{elem0}{elem1}
+%\ganttlink{elem1}{elem1}
+%\ganttlink{elem2}{elem3}
+\ganttmilestone{Qualification}{16} \\
+%Second Group
+\ganttgroup{Research}{1}{24} \\
+\ganttbar{Task 1}{7}{10} \\
+\ganttbar{Task 2}{10}{13} \\
+\ganttbar{Task 3}{14}{16}\\
+\ganttlink{elem8}{elem9}
+\ganttlink{elem9}{elem10}
+%\ganttmilestone{Milestone 1}{11}
+\end{ganttchart}
+\end{landscape}
+
 \chapter{Expected Results}
 
 %  Após a conclusão do projeto, é esperado que se tenha uma implementação de rede neural completamente funcional capaz de identificar o Ipomoea grandifolia em plantações de cana de açúcar com um mínimo de consumo energético. Espera-se também obter conhecimento das técnicas e medidas necessárias para implementar redes neurais em FPGAs de forma a otimizar seu o consumo energético e performance, tendo medidas quantitativas do resultado final. Comparações de eficiência energética e performance entre diferentes arquiteturas de hardware serão feitas, de forma que se possa avaliar as particularidades de cada uma e em quais situações a utilização de cada uma delas é mais propícia.
