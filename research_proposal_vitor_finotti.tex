@@ -192,20 +192,34 @@
 
 % resumo em inglês
 \begin{resumo}
-  The sugarcane cultivation has a prominent role in the Brazilian agribusiness, being used not only in the food sector but also as an energy resource. In situations where the cultivation focus is the growth and production of organic products, limitations on pesticides and agrochemicals usage leads to the urge to find alternatives to control pests such as the \textit{Ipomoea grandifolia}, a weed that affect sugarcane plantation. This work proposes to implement a neural network in FPGA capable of identifying this weed, working as a first stage of a system to combat it.
+     % Contextualization
+     Convolutional neural networks have played a prominent role in recent years in the fields of computational vision, image recognition and machine learning.
+     % Gap
+     However, applications that require power efficiency are not favored by the use of the most commonly used hardware, the GPU, which delivers higher performance at the cost of higher power consumption when compared to other existing alternatives.
+     % Objectives
+     This project proposes to use techniques for optimization of hardware processing to improve the power efficiency of convolutional neural networks in FPGAs, which are attractive due to their greater flexibility and lower power consumption when compared to GPUs.
+     % Methodology
+     The topics to be explored in the search for a better power efficiency are sparsity of matrices, multiplications reduction and use of binary and ternary data types.
 
    \vspace{\onelineskip}
    \noindent
-   \textbf{Keywords}: Sugarcane, FPGA, Neural Networks.
+   \textbf{Keywords}: FPGA, Convolutional Neural Network, Power Efficiency.
 \end{resumo}
 
 % resumo em português
 \setlength{\absparsep}{18pt} % ajusta o espaçamento dos parágrafos do resumo
 \begin{resumo}[Resumo]
-\begin{otherlanguage*}{brazil}
- O cultivo de cana-de-açúcar tem um papel de destaque dentro do agronegócio brasileiro, tendo participação tanto como matéria prima alimentícia quanto energética. Quando o foco do cultivo é a produção de produtos orgânicos, limitações quanto aos pesticidas e agrotóxicos usados geram uma necessidade de encontrar alternativas para controlar pragas tais como o cipó \textit{Ipomoea grandifolia}. Este trabalho propõe implementar uma rede neural em FPGA capaz de identificar esta planta daninha por imagem, de forma a ser a primeira etapa em um sistema de combate a ela.
+  \begin{otherlanguage*}{brazil}
+    % Contextualization
+    Redes neurais convolucionais têm tido um papel de destaque nos últimos anos nos campos de visão computacional, reconhecimento de imagens e aprendizado de máquina.
+    % Gap
+    Contudo, aplicações que necessitam de eficiência energética não são favorecidas pelo uso do hardware mais comumente usado, a GPU, que entrega maior desempenho ao custo de um maior consumo de energia se comparado a outras alternativas existentes.
+    % Objectives
+    Este projeto propõe aplicar técnicas atuais para otimização de processamento em hardware visando melhorar a eficiência energética de redes neurais convolucionais em FPGAs, hardware que possue o atrativo de maior flexibilidade e menor consumo energético que as GPUs.
+    % Methodology
+    Os tópicos a serem explorados na busca de uma melhor eficiência energética são a esparsidade de matrizes, a redução de multiplicações e o uso de formatos de dados binários e ternários.
 
- \textbf{Palavras-chave}: Cana-de-açúcar, FPGA, Redes Neurais.
+ \textbf{Palavras-chave}: FPGA, Rede Neural Convolucional, Eficiência energética.
   \end{otherlanguage*}
 \end{resumo}
 
