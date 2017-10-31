@@ -71,6 +71,7 @@
 \usepackage{rotating}
 \usepackage[graphicx]{realboxes}
 \usepackage{csquotes} % for babel
+\usepackage{ragged2e} % provides \RaggedLeft
 % ---
 
 % ---
@@ -98,7 +99,7 @@
 % ---
 % Informações de dados para CAPA e FOLHA DE ROSTO
 % ---
-\titulo{Identification of sugarcane weeds by neural networks in FPGAs}
+\titulo{Increasing Power Efficiency on Convolutional Neural Networks for Field-Programmable Gate Arrays}
 \autor{Vitor Finotti Ferreira}
 \local{São Paulo}
 \data{2017}
@@ -112,7 +113,7 @@
 \areaconcentracao{Computational Engineering}
 % O preambulo deve conter o tipo do trabalho, o objetivo,
 % o nome da instituição e a área de concentração
-\preambulo{Proposal of a master thesis on the implementation of neural networks on Field Programmable Gate Arrays for identification of sugarcane weeds.}
+\preambulo{Proposal of a master thesis on the power efficiency improvement on convolutional neural networks in Field Programmable Gate Arrays.}
 % ---
 
 % informações do PDF
@@ -149,37 +150,6 @@
 % ---
 \makeindex
 % ---
-
-% ---
-% Configurações do Gráfico de Gantt
-% ---
-\newganttchartelement*{mymilestone}{
-mymilestone/.style={
-shape=isosceles triangle,
-inner sep=0pt,
-draw=cyan,
-top color=white,
-bottom color=cyan!50
-},
-mymilestone incomplete/.style={
-/pgfgantt/mymilestone,
-draw=yellow,
-bottom color=yellow!50
-},
-mymilestone label font=\slshape,
-mymilestone left shift=0pt,
-mymilestone right shift=0pt
-}
-
-\newgantttimeslotformat{stardate}{%
-\def\decomposestardate##1.##2\relax{%
-\def\stardateyear{##1}\def\stardateday{##2}%
-}%
-\decomposestardate#1\relax%
-\pgfcalendardatetojulian{\stardateyear-01-01}{#2}%
-\advance#2 by-1\relax%
-\advance#2 by\stardateday\relax%
-}
 
 % ----
 % Início do documento
@@ -222,20 +192,34 @@ mymilestone right shift=0pt
 
 % resumo em inglês
 \begin{resumo}
-  The sugarcane cultivation has a prominent role in the Brazilian agribusiness, being used not only in the food sector but also as an energy resource. In situations where the cultivation focus is the growth and production of organic products, limitations on pesticides and agrochemicals usage leads to the urge to find alternatives to control pests such as the \textit{Ipomoea grandifolia}, a weed that affect sugarcane plantation. This work proposes to implement a neural network in FPGA capable of identifying this weed, working as a first stage of a system to combat it.
+     % Contextualization
+     Convolutional neural networks have played a prominent role in recent years in the fields of computational vision, image recognition and machine learning.
+     % Gap
+     However, applications that require power efficiency are not favored by the use of the most commonly used hardware, the GPU, which delivers higher performance at the cost of higher power consumption when compared to other existing alternatives.
+     % Objectives
+     This project proposes to use techniques for optimization of hardware processing to improve the power efficiency of convolutional neural networks in FPGAs, which are attractive due to their greater flexibility and lower power consumption when compared to GPUs.
+     % Methodology
+     The topics to be explored in the search for a better power efficiency are sparsity of matrices, multiplications reduction and use of binary and ternary data types.
 
    \vspace{\onelineskip}
    \noindent
-   \textbf{Keywords}: Sugarcane, FPGA, Neural Networks.
+   \textbf{Keywords}: FPGA, Convolutional Neural Network, Power Efficiency.
 \end{resumo}
 
 % resumo em português
 \setlength{\absparsep}{18pt} % ajusta o espaçamento dos parágrafos do resumo
 \begin{resumo}[Resumo]
-\begin{otherlanguage*}{brazil}
- O cultivo de cana-de-açúcar tem um papel de destaque dentro do agronegócio brasileiro, tendo participação tanto como matéria prima alimentícia quanto energética. Quando o foco do cultivo é a produção de produtos orgânicos, limitações quanto aos pesticidas e agrotóxicos usados geram uma necessidade de encontrar alternativas para controlar pragas tais como o cipó \textit{Ipomoea grandifolia}. Este trabalho propõe implementar uma rede neural em FPGA capaz de identificar esta planta daninha por imagem, de forma a ser a primeira etapa em um sistema de combate a ela.
+  \begin{otherlanguage*}{brazil}
+    % Contextualization
+    Redes neurais convolucionais têm tido um papel de destaque nos últimos anos nos campos de visão computacional, reconhecimento de imagens e aprendizado de máquina.
+    % Gap
+    Contudo, aplicações que necessitam de eficiência energética não são favorecidas pelo uso do hardware mais comumente usado, a GPU, que entrega maior desempenho ao custo de um maior consumo de energia se comparado a outras alternativas existentes.
+    % Objectives
+    Este projeto propõe aplicar técnicas atuais para otimização de processamento em hardware visando melhorar a eficiência energética de redes neurais convolucionais em FPGAs, hardware que possue o atrativo de maior flexibilidade e menor consumo energético que as GPUs.
+    % Methodology
+    Os tópicos a serem explorados na busca de uma melhor eficiência energética são a esparsidade de matrizes, a redução de multiplicações e o uso de formatos de dados binários e ternários.
 
- \textbf{Palavras-chave}: Cana-de-açúcar, FPGA, Redes Neurais.
+ \textbf{Palavras-chave}: FPGA, Rede Neural Convolucional, Eficiência energética.
   \end{otherlanguage*}
 \end{resumo}
 
@@ -258,27 +242,33 @@ mymilestone right shift=0pt
 % ----------------------------------------------------------
 
 \chapter[Introduction \& Background]{Introduction \& Background}
-%Introduce the area of research
-%Review key publications
-%Identify any gap in the knowledge or questions which have to be answered
-%Your hypotheses
-%Your aims and objectives, including a brief description of the methodology
-%How is your research beneficial and to whom
+% Context (start introducing CNN)
+%% say about CNN and FPGAs (GPUs are more powerful, but FPGAs are getting some space)
+% Gap
+%% Some applications require power efficiency due to energy limitations (Drones and autonomous systems)
+%% GPUs have a bigger consumption than other platforms (e.g. FPGA)
+%% necessidade de poupar energia onde der no robo, dado que não é possível fazer isso nos motores dado que eles oferecem pouca margem para otimizacoes energéticas dado sua natureza eletro-mecanica instrínseca
+%% Introduce the project of the autonomous robot responsible for eliminating ipomoea vine on organic sugarcane plantations. (State the importance of agribusiness briefly also)
+% Related work (State how the scientific community is tackling this issue)
+%% Binary and Ternary data types
+%% Pipeline
+%% Pursued computational redundancy to reduce computational resources and energy consumption
 
-  The agribusiness has a major importance in the Brazilian economy, promoting not only agriculture and beef cattle production, but also the technological and logistical infrastructure that supports the sectors. This encompasses several areas related to agriculture, both upstream and downstream, involving: production of inputs for agriculture, production of agricultural raw materials, processing of these raw materials, distribution and other services, up to final consumption or export.~\cite{cepea}. In 2016, agribusiness accounted for 23\% of national GDP, moving R\$ 1.425 trillion~\cite{cna}, being a fundamental mitigating factor in the economic crisis that the country experienced~\cite{agro_canal_rural}.
+Convolutional neural networks (CNNs) arouse as a leading solution in the field of computational vision, image recognition and machine learning in the last few years. The CNNs, although popular today, were overshadowed by other algorithms until the ImageNet competition in 2012, when their use almost halved the error rate of the other approaches~\cite{NIPS2012_4824}. This performance was only achieved by a combination of new training techniques and the efficient use of Graphics Processing Units (GPUs)~\cite{LeCun2015}.
 
-  Among the various activities that build agribusiness, sugarcane cultivation plays an important role, with its production chain accounting for R\$ 164.181 billions in 2016 \cite{cna}. Amid the opportunities in sugarcane production there is a niche focused on organic products, whose production is characterised by social, environmental and economic sustainability~\cite{organicos_canal_rural}. Among its particularities there is the non-use of agrochemicals, hormones, veterinary drugs, chemical fertilisers, antibiotics or transgenic products at any stage of production. The benefits gained by these restrictions contrast with the difficulty in increasing the scale of production and maintaining the competitive cost, which concentrates this market in small producers, limiting the access of their benefits to the population. Although with great potential, the market for organic products is still characterised by a timid supply compared to the growing demand~\cite{organicos_carta_capital}.
+Although GPUs are the paramount hardware for training neural networks due to its higher performance peak when compared to other architectures~\cite{Zhang2017, Nurvitadhi2017_1}, they also present higher power consumption~\cite{Sun2017}. In contexts where power availability is limited, such as drones and autonomous robots, the choice of hardware for image recognition has to be done carefully. High-performance hardware architectures can imply in a higher power consumption, reducing the autonomy of the robot, while more power-efficient solutions may result in slower processing, impacting the effectiveness of the recognition.
 
-  The development of technologies that can support the growth of this sector are fundamental to develop their national potential, whose market share is 10 times lower than traditional markets, such as the US or Germany~\cite{organicos_carta_capital}.
+These challenges are suitable applications for Field-Programmable Gate Arrays (FPGAs), which have become an attractive solution to accelerate CNNs not only for its higher power efficiency, but also for its flexibility and short time-to-market~\cite{Zhang2017}. This has motivated efforts to optimize the power efficiency in this architecture while retaining recognition performance. A first topic of interest is exploring the FPGA parallelism, implementing a pipelined computational method for the processing in convolutional layers, which are computation-intensive as done by \textcite{Sun2017}. The high sparsity present in the neurons and weights of popular neural networks such as AlexNet, VGG and ResNet can be used, since sparse matrices require less multiplications than dense matrices~\cite{Nurvitadhi2017_1}. Fewer multiplications imply a lesser use of FPGA resources, resulting in lower power consumption. Another potential method to reduce multiplications is to reduce some redundant operations that happens on the convolutional layers, as suggested  by~\textcite{Ujiie2016}, so only the fundamental operations that affect the final result are executed. The use of binary and ternary data formats, instead of floating-point representation, is also a trend for increasing efficiency of CNNs due to the smaller memory space of the coefficients and the simpler arithmetic operations of these notations~\cite{Courbariaux2016c, NIPS2016_6573, Venkatesh2017}. The use of these compact data types introduces irregular parallelisms which are better mapped to FPGAs than GPUs~\cite{Nurvitadhi2017_1}.
 
-% Ligar com o texto dos objetivos explicando como é feito o controle atualmente em lavouras organicas.
-% Hoje, o produtor contrata um ser humano pra ir de tempos em tempos lá e cortar manualmente. O que acontece é que a lavoura de cana de acucar é agressiva para o ser humano, oferencendo riscos como cortes, fogo, animais peconhentos, etc. A ideia final é identificar remotamente os cipos para que o corte possa ser feito somente quando necessario, preferencialmente por um equipamento autonomo.
-% Nas lavouras organicas nao pode-se entrar com maquinario pesado pois o solo é "vivo", com uma microfauna importante para manutençao da lavoura. As maquinas pesadas danificam este ambiente e são consideradas inadequadas para o cultivo organico. Todo maquinario, emsmo leve, é preparado para não compactar o solo.
-% Robos agricolas não sao adequados para supervisao remota pois dependem de bateria e a comunicacao é precaria por causa da presenca de agua (nas canas de acucar).
+% Estes esforços pela busca da eficiência de potência em CNNs e os consequentes benefícios que isto acarretaria para aplicações com recursos energéticos limitados ou com necessidade de eficiência energética inspirou este projeto, que tem como objetivo estudar de forma objetiva utilizar estas tendências na implementação energéticamente eficiente de redes neurais convolucionais em FPGAs.
 
-%  O controle de pragas nestas plantações organicas é feito através do uso de mão de obra humana, onde um trabalhador contratado percorre a plantação periodicamente para lidar com elas manualmente. No caso do cipó textit{Ipomoea grandifolia}, erva daninha que atinge a cana-de-açúcar, o trabalhador procura uma flor branca característica do cipó, cortando-a ao encontrar. Contudo, tais ambientes de plantação são agressivos ao ser humano, oferecendo riscos como animais peçonhentos, cortes e fogo. A ideia deste projeto é identificar o cipó remotamente para que as intervenções na plantação sejam feitas apenas quando necessário, de preferência por um equipamento autônomo.
+These efforts to search for power efficiency in CNNs have inspired this project, which aims to analyse and use these trends in the pursue for a power efficient implementation of CNNs in FPGAs. This will be applied in the development of an image recognition system of an autonomous robot. This will be used in organic sugarcane farms to identify the \textit{Ipomoea grandifolia} vine, a weed present in these plantations, illustrated in \autoref{fig:ipomoea}. Such application is a
 
-  Pest control in these organic plantations is done through the use of human labour, where a hired worker periodically traverses the plantation to deal with them manually. In the case of the \textit{Ipomoea grandifolia}, a weed that affects sugarcane, the worker searches for a flower characteristic of the vine, illustrated on \autoref{fig:ipomoea}, cutting it when found. However, such planting environments are aggressive to humans, posing hazards such as venomous animals, cuts and fire. The idea of this project is to identify the vine remotely so that the interventions in the plantation are made only when necessary, preferably by an autonomous equipment.
+% Falar da importancia do agronegocio (o quanto ele representa do pib), o quanto a cana de acucar representa pro agro negocio (talvez falar em numeros), e citar que esforcos deste tipo tendem a permitir uso das tecnologias de CNN nao apenas neste setor, mas em diversas outras areas. Dizer que o estudo pode dar Maior independência dos dispositivos de reconhecimento de imagem (rede de internet movel, HW caro, alto consumo energético)
+
+% Tal aplicação se mostra como uma das soluções mais víaveis para o problema, dado que o uso de herbicidas não é possível em plantações orgânicas, que o ambiente da hostil da plantação não favorece intervenção de trabalhadores humanos , e que processamento remoto das imagens obtidas é inviável por conta da comunicação sem fio precária por conta da humidade do ar intrínseca das plantações. Sendo assim, o reconhecimento de imagem tem de ser feito in loco, com o menor consumo enegético possível para aumentar a autonomia do sistema como um todo.
+
+This application is shown as one of the most viable solutions to the problem, given that the use of herbicides is not possible in organic plantations, that the hostile environment of the plantation does not favor the intervention of human workers, and that remote processing of the images obtained is impracticable as a result of the poor wireless communication due the intrinsic air humidity of the plantations. Therefore, image recognition has to be done \textit{in loco}, with the lowest power consumption possible to increase the autonomy of the whole system.
 
 \begin{figure}[htb]
   \caption{\label{fig:ipomoea}\textit{Ipomoea grandifolia} vine}
@@ -288,132 +278,96 @@ mymilestone right shift=0pt
   \legend{Source: \cite{corda_viola_agrolink}}
 \end{figure}
 
+%Introduce the area of research
+%Review key publications
+%Identify any gap in the knowledge or questions which have to be answered
+%Your hypotheses
+%Your aims and objectives, including a brief description of the methodology
+%How is your research beneficial and to whom
 
-%  Nas lavouras orgânicas a utilização de maquinário pesado também não é possível, pois a utilização destes afetam uma microfauna presente no solo que é importante para a manutenção da lavoura. Máquinas pesadas danificam este ambiente e são inadequadas para o cultivo orgânico. Todo maquinário, mesmo leve, é preparado para não compactar o solo. Neste contexto, robôs agrícolas não são adequados para supervisão remota por dependerem de uma bateria, cuja autonomia é limitada, e pela comunicação precária entre robô e central de processamento por conta da presença de água (da cana de açucar) no meio.
+\chapter[Objectives]{Objectives \& Motivation}
 
-  In organic farming the use of heavy machinery is also not possible as it affects a micro fauna present in the soil, which is important for the maintenance of the crop. Heavy machinery damages this environment and is unsuitable for organic farming. All machinery, even light one, is prepared not to compact the soil. In this context, agricultural robots are not suitable for remote supervision because they depend on a battery, whose autonomy is limited, and the poor communication between robot and processing centre due to the presence of water (of sugarcane) in the medium.
+This work aims to obtain power efficiency in convolutional neural networks implemented in field-programmable gate arrays, while retaining image recognition capability for real time performance.
 
-  This project proposes to implement a convolutional neural network in an FPGA in order to perform the image recognition of the \textit{Ipomoea grandifolia} vine, seeking to provide an effective and energy efficient solution for the problem.
+The acquired knowledge will be applied in the development of a image recognition system of the \textit{Ipomoea grandifolia}, a weed that affects sugarcane. Such identification would be the first stage of a system for the control of this pest.
 
-\chapter[Objectives]{Objectives}
-
- This work aims to implement a convolutional neural network in FPGA capable of identifying the \textit{Ipomoea grandifolia}, a weed that affects sugarcane. Such identification would be the first stage of a system for the control of this pest. The FPGA implementation is attractive due its high parallelization capacity and the reduced power consumption compared to other hardware architectures such as GPUs. These characteristics are important in the context of a rural plantation where poor internet access requires that the processing be done  autonomously on the local, and the limited access to energy and demands a power efficient solution.
+The findings of this research could benefit applications with limited energy resources or in need of energy efficiency. This would bring more independence to image recognition devices, reducing the amount of resources needed to run these algorithms and allowing them to run on more economical and portable hardware.
 
 \chapter[Methodology]{Methodology}
 \section{Investigation Approach}
 
-Considering the popularity and effectiveness of convolutional neural networks on the field of image recognition~\cite{LeCun2015}, the project intends to implement such algorithm for the vine identification, using optimizations such as binary neural networks to improve hardware performance and efficiency~\cite{Nurvitadhi2017_0, Courbariaux2015}. Although other architectures like CPU and GPU offer high peak theoretical performance, the nature of binary neural network makes its implementation on customizable hardware more efficient. In this scenario, FPGAs provide orders of magnitude over software without having to use a fixed solution, such as ASICs~\cite{Courbariaux2015}.
-
 The first step towards the implementation is the study of the theory and background of neural network and image recognition for hardware accelerators. This will be done choosing appropriate disciplines simultaneously with the literature review so the most recent advances on the field can guide the theoretical development, as planned on \autoref{sec:scheadule}.
 
-The knowledge obtained will be applied to develop the structure of a binary convolutional neural network to do the image recognition task. Recent studies, such as \textcite{Nurvitadhi2017_0} shows the potential of FPGAs in comparison with other architectures in terms of energy efficiency. This potential is explored through specific optimizations on the neural network architecture, as mentioned on \textcites{Courbariaux2015, Zhang2017}. A training and test set of images of the \textit{Ipomoea grandifolia}, probably obtained from an organic sugarcane production farm, will be used to train the network and test its effectiveness in recognising the vine. This network will be trained using open-source tools.
+The knowledge obtained will be applied to develop the structure of a binary convolutional neural network to do the image recognition task. Recent studies, such as \textcite{Nurvitadhi2017_0} shows the potential of FPGAs in comparison with other architectures in terms of power efficiency. This potential is explored through specific optimizations on the neural network architecture, as mentioned on \textcites{Courbariaux2015, Zhang2017}. A training and test set of images of the \textit{Ipomoea grandifolia}, probably obtained from an organic sugarcane production farm, will be used to train the network and test its effectiveness in recognising the vine. This network will be trained using open-source tools.
 
-Once the neural network is fully trained and tested, the implementation on hardware will begin. Tests to compare the performance and power consumption of the neural network on different architectures will be done, focusing in improving the energy efficiency. The implemented network will be validated through simulations and empirical tests, using real or emulated data.
+Once the neural network is fully trained and tested, the implementation on hardware will begin. Tests to compare the performance and power consumption of the neural network on different architectures will be done, focusing in improving the power efficiency. The focus here is to reduce the power consumption to recognise one frame, while maintaining the frame rate suitable for real time performance of the system. The implemented network will be validated through simulations and empirical tests, using real or emulated data.
 
-Some studies show that FPGAs could outperform GPUs on next generations, using the combinations of numerous improvements made on FPGA together with DNN algorithm innovations that favour hardware customizability \cite{Nurvitadhi2017_1}. Achieving this performance on the FPGA could benefit not only this study, but also other applications that require not only energy efficience, but also high performance. Therefore, an effort will be made to improve the performance of the binary neural network as well.
+% Some studies suggest that FPGAs could outperform GPUs on next generations, using the combinations of numerous improvements made on FPGA together with DNN algorithm innovations that favour hardware customizability \cite{Nurvitadhi2017_1}. Achieving this performance on the FPGA could benefit not only this study, but also other applications that require not only energy efficience, but also high performance. Therefore, an effort will be made to improve the performance of the binary neural network as well.
 
 \section{Tools and Resources}
 
   It is proposed to develop the project using open-source tools to reduce the cost of implementation and assist the dissemination of the technology created whenever possible. For the development phase, it will be used a computer with Linux operating system and software development environments such as Python and R. Since it is often necessary to use specific programs of the FPGA manufacturer for FPGA simulation, syntheses and implementation, private software such as Vivado or Quartus will be used. The infrastructure of the laboratories of the university will be used for the development and validation of the work done. Data for test and validation will be obtained from the an organic sugarcane production farm.
 
 \section{Schedule} \label{sec:scheadule}
-\begin{enumerate}
-    \item Discipline 1; %item 1
-    \item Discipline 2; %item 2
-    \item Discipline 3; %item 3
-    \item Discipline 4; %item 4
-    \item Discipline 5; %item 5
-    \item Literature Review; %item 6
-    \item Application Analysis; %item 7
-    \item System Implementation; %item 8
-    \item System Validation; %item 9
-    \item Qualification Exam; %item 10
-    \item Thesis Writing; %item 11
-    \item Thesis Defence; %item 12
-    \item Thesis Review; %item 13
-    \item Dissemination (Conferences and/or Journals); %item 14
-\end{enumerate}
-
-\begin{landscape}
-  \centering
-\begin{adjustbox}{width=\textheight, totalheight=\textwidth,keepaspectratio}
-%\begin{table}
-%       \caption{Cronograma de desenvolvimento do projeto}\label{cronograma}
-%       \vspace{.3cm}
-\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
-        \hline
-        \raisebox{0pt}[12pt][6pt]  & \multicolumn{4}{|c|}{2017} & \multicolumn{12}{|c|}{2018} & \multicolumn{8}{|c|}{2019} \\
-        \hline
-        \raisebox{0pt}[12pt][6pt]               &S&O&N&D&J&F&M&A&M&J&J&A&S&O&N&D&J&F&M&A&M&J&J&A\\
-        \hline
-        \raisebox{0pt}[12pt][6pt]{Item 1}       &X&X&X&X& & & & & & & & & & & & & & & & & & & & \\
-        \hline
-        \raisebox{0pt}[12pt][6pt]{Item 2}   &X&X&X&X& & & & & & & & & & & & & & & & & & & & \\
-        \hline
-        \raisebox{0pt}[12pt][6pt]{Item 3}       & & & & &X&X&X&X&X& & & & & & & & & & & & & & & \\
-        \hline
-        \raisebox{0pt}[12pt][6pt]{Item 4}   & & & & & & & & & &X&X&X& & & & & & & & & & & & \\
-        \hline
-        \raisebox{0pt}[12pt][6pt]{Item 5}   & & & & & & & & & &X&X&X& & & & & & & & & & & & \\
-        \hline
-        \raisebox{0pt}[12pt][6pt]{Item 6}       &X&X&X&X&X&X&X&X&X&X&X&X&X&X&X&X&X&X&X& & & & & \\
-        \hline
-        \raisebox{0pt}[12pt][6pt]{Item 7}       & & & & & & & & & &X&X&X& & & & & & & & & & & & \\
-        \hline
-        \raisebox{0pt}[12pt][6pt]{Item 8}   & & & & & & & & & & & & &X&X&X&X&X&X&X& & & & & \\
-        \hline
-        \raisebox{0pt}[12pt][6pt]{Item 9}   & & & & & & & & & & & & & &X&X&X&X&X&X& & & & & \\
-        \hline
-        \raisebox{0pt}[12pt][6pt]{Item 10}  & & & & & & & & & & &X&X& & & & & & & & & & & & \\
-        \hline
-        \raisebox{0pt}[12pt][6pt]{Item 11}      & & & & & & & & & & & & & & & & &X&X&X&X& & & & \\
-        \hline
-        \raisebox{0pt}[12pt][6pt]{Item 12}  & & & & & & & & & & & & & & & & & & & &X&X& & & \\
-        \hline
-        \raisebox{0pt}[12pt][6pt]{Item 13}  & & & & & & & & & & & & & & & & & & & & & &X&X& \\
-        \hline
-        \raisebox{0pt}[12pt][6pt]{Item 14}  & & & & & & & & & & & & & & & & & & & &X&X&X&X&X\\
-        \hline
-\end{tabular}
-%\end{table}
-\end{adjustbox}
-\end{landscape}
-
-
-\begin{landscape}
-\begin{ganttchart}[vgrid, hgrid]{1}{36}
-\gantttitle{2017}{12}
-\gantttitle{2018}{12}
-\gantttitle{2019}{12}\\
-% \gantttitlelist{1,...,36}{1}\\
-\gantttitlelist{1,2,3,4,5,6,7,8,9,10,11,12,1,2,3,4,5,6,7,8,9,10,11,12,1,2,3,4,5,6,7,8,9,10,11,12}{1}\\
-%First Group
-\ganttgroup{Disciplines}{9}{24} \\
-\ganttbar{Discipline 1}{9}{12} \\
-\ganttbar{Discipline 2}{9}{12} \\
-\ganttbar{Discipline 3}{13}{17} \\
-\ganttbar{Discipline 4}{18}{20} \\
-\ganttbar{Discipline 5}{21}{24} \\
-%\ganttlink{elem0}{elem1}
-%\ganttlink{elem1}{elem1}
-%\ganttlink{elem2}{elem3}
-\ganttmilestone{Qualification}{24} \\
-%Second Group
-\ganttgroup{Research}{9}{32} \\
-\ganttbar{Task 1}{15}{18} \\
-\ganttbar{Task 2}{18}{21} \\
-\ganttbar{Task 3}{22}{24}\\
-\ganttlink{elem8}{elem9}
-\ganttlink{elem9}{elem10}
-%\ganttmilestone{Milestone 1}{11}
+\begin{turn}{90}
+  \begin{ganttchart}[vgrid={draw=none,draw=none},%
+      % today=15,%
+      % today offset=.5,%
+      % today label=Heute,%
+      % progress=today,%
+      x unit=0.6cm,
+      y unit title=0.7cm,
+      y unit chart=0.55cm,
+      bar incomplete/.append style={fill=red},%
+      progress label text=  {\quad\pgfmathprintnumber[precision=0,verbatim]{#1}\%},%
+      % progress label font=\tiny,
+      % milestone label font=\tiny,
+      % group label font=\tiny,
+      % title label font=\tiny
+      % bar label node/.style={text width=3cm,align=right,font=\scriptsize\RaggedLeft,anchor=east},
+      % milestone label node/.style={text width=2cm,align=right,font=\scriptsize\RaggedLeft,anchor=east},
+      % group label node/.style={text width=3cm,align=right,font=\scriptsize\RaggedLeft,anchor=east}
+      ]{1}{24}
+    \gantttitlecalendar*[compress calendar,time slot format=isodate]{2017-09-1}{2019-08-31}{year, month} \\
+    \gantttitlelist{1,...,24}{1}\\
+    \ganttgroup{Total Duration}{1}{24} \\
+    %%%%%%%%%%%%%%%%% Disciplines
+    \ganttgroup{Disciplines}{1}{16} \\
+    \ganttbar{Discipline 1}{1}{4} \\
+    \ganttbar{Discipline 2}{1}{4} \\
+    \ganttlinkedbar{Discipline 3}{5}{9} \ganttnewline
+    \ganttlinkedbar{Discipline 4}{10}{12} \ganttnewline
+    \ganttlinkedbar{Discipline 5}{13}{16} \ganttnewline
+    %%%%%%%%%%%%%%%%% Phase-1
+    \ganttgroup{Phase 1}{1}{4} \\
+    \ganttbar{Scope Reading}{1}{1} \\
+    \ganttlinkedbar{Initial Literature Review}{2}{4} \ganttnewline
+    %\ganttlinkedbar{Define Scope of Review}{3}{3} \ganttnewline
+    %\ganttlinkedbar{Definition of Research Problem}{3}{3} \ganttnewline
+    \ganttlinkedbar{Research Proposal Writing}{4}{4} \ganttnewline
+    %%%%%%%%%%%%%%%%% Phase-2
+    \ganttgroup{Phase 2}{5}{16} \\
+    \ganttbar{Application Analysis}{5}{7} \\
+    \ganttlinkedbar{Design Experimental Procedure}{7}{9} \ganttnewline
+    \ganttlinkedbar{Development of source code}{8}{14} \ganttnewline
+    \ganttlinkedbar{Run Experiments}{10}{16} \ganttnewline
+    \ganttlinkedbar{Analysis of Experimental Data}{16}{19} \ganttnewline
+    \ganttmilestone{Qualification Exam}{13} \\
+    %%%%%%%%%%%%%%%%% Phase-3
+    \ganttgroup{Phase 3}{17}{24} \\
+    \ganttbar{Solving Validation and Conclusion}{17}{20} \\
+    \ganttlinkedbar{Publications $\&$ Workshops}{19}{22} \ganttnewline
+    \ganttlinkedbar{Thesis Writing}{19}{24} \ganttnewline
+    \ganttmilestone{Thesis Defense}{23} \ganttnewline
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \end{ganttchart}
-\end{landscape}
+\end{turn}
 
 \chapter{Expected Results}
 
 %  Após a conclusão do projeto, é esperado que se tenha uma implementação de rede neural completamente funcional capaz de identificar o Ipomoea grandifolia em plantações de cana de açúcar com um mínimo de consumo energético. Espera-se também obter conhecimento das técnicas e medidas necessárias para implementar redes neurais em FPGAs de forma a otimizar seu o consumo energético e performance, tendo medidas quantitativas do resultado final. Comparações de eficiência energética e performance entre diferentes arquiteturas de hardware serão feitas, de forma que se possa avaliar as particularidades de cada uma e em quais situações a utilização de cada uma delas é mais propícia.
 
-  After conclusion of the project, it is expected to have a fully functional neural network implementation capable of identifying \textit{Ipomoea grandifolia} vines in sugarcane plantations with a minimum of energy consumption. It is also expected to understand the techniques necessary to optimize energy consumption and performance of neural networks in FPGAs. Comparisons of energy efficiency and performance between different hardware architectures will be made, so that one can evaluate the particularities of each one and judge situations where their use is more suitable.
+After conclusion of the project, it is expected to understand the techniques necessary to optimize power consumption of convolutional neural networks in FPGAs. Comparisons of power efficiency and performance obtained using different approaches, such as sparsity, multiplications reduction and use of binary and ternary data types will be made, so that one can evaluate the particularities of each one and their impact on the final system. Also, it is expected to have a fully functional neural network implementation capable of identifying \textit{Ipomoea grandifolia} vines in sugarcane plantations with a minimum of power consumption.
 
 
 % ----------------------------------------------------------
