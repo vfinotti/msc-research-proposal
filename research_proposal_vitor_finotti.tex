@@ -258,27 +258,33 @@ mymilestone right shift=0pt
 % ----------------------------------------------------------
 
 \chapter[Introduction \& Background]{Introduction \& Background}
-%Introduce the area of research
-%Review key publications
-%Identify any gap in the knowledge or questions which have to be answered
-%Your hypotheses
-%Your aims and objectives, including a brief description of the methodology
-%How is your research beneficial and to whom
+% Context (start introducing CNN)
+%% say about CNN and FPGAs (GPUs are more powerful, but FPGAs are getting some space)
+% Gap
+%% Some applications require power efficiency due to energy limitations (Drones and autonomous systems)
+%% GPUs have a bigger consumption than other platforms (e.g. FPGA)
+%% necessidade de poupar energia onde der no robo, dado que não é possível fazer isso nos motores dado que eles oferecem pouca margem para otimizacoes energéticas dado sua natureza eletro-mecanica instrínseca
+%% Introduce the project of the autonomous robot responsible for eliminating ipomoea vine on organic sugarcane plantations. (State the importance of agribusiness briefly also)
+% Related work (State how the scientific community is tackling this issue)
+%% Binary and Ternary data types
+%% Pipeline
+%% Pursued computational redundancy to reduce computational resources and energy consumption
 
-  The agribusiness has a major importance in the Brazilian economy, promoting not only agriculture and beef cattle production, but also the technological and logistical infrastructure that supports the sectors. This encompasses several areas related to agriculture, both upstream and downstream, involving: production of inputs for agriculture, production of agricultural raw materials, processing of these raw materials, distribution and other services, up to final consumption or export.~\cite{cepea}. In 2016, agribusiness accounted for 23\% of national GDP, moving R\$ 1.425 trillion~\cite{cna}, being a fundamental mitigating factor in the economic crisis that the country experienced~\cite{agro_canal_rural}.
+Convolutional neural networks (CNNs) arouse as a leading solution in the field of computational vision, image recognition and machine learning in the last few years. The CNNs, although popular today, were overshadowed by other algorithms until the ImageNet competition in 2012, when their use almost halved the error rate of the other approaches~\cite{NIPS2012_4824}. This performance was only achieved by a combination of new training techniques and the efficient use of Graphics Processing Units (GPUs)~\cite{LeCun2015}.
 
-  Among the various activities that build agribusiness, sugarcane cultivation plays an important role, with its production chain accounting for R\$ 164.181 billions in 2016 \cite{cna}. Amid the opportunities in sugarcane production there is a niche focused on organic products, whose production is characterised by social, environmental and economic sustainability~\cite{organicos_canal_rural}. Among its particularities there is the non-use of agrochemicals, hormones, veterinary drugs, chemical fertilisers, antibiotics or transgenic products at any stage of production. The benefits gained by these restrictions contrast with the difficulty in increasing the scale of production and maintaining the competitive cost, which concentrates this market in small producers, limiting the access of their benefits to the population. Although with great potential, the market for organic products is still characterised by a timid supply compared to the growing demand~\cite{organicos_carta_capital}.
+Although GPUs are the paramount hardware for training neural networks due to its higher performance peak when compared to other architectures~\cite{Zhang2017, Nurvitadhi2017_1}, they also present higher power consumption~\cite{Sun2017}. In contexts where power availability is limited, such as drones and autonomous robots, the choice of hardware for image recognition has to be done carefully. High-performance hardware architectures can imply in a higher power consumption, reducing the autonomy of the robot, while more power-efficient solutions may result in slower processing, impacting the effectiveness of the recognition.
 
-  The development of technologies that can support the growth of this sector are fundamental to develop their national potential, whose market share is 10 times lower than traditional markets, such as the US or Germany~\cite{organicos_carta_capital}.
+These challenges are suitable applications for Field-Programmable Gate Arrays (FPGAs), which have become an attractive solution to accelerate CNNs not only for its higher power efficiency, but also for its flexibility and short time-to-market~\cite{Zhang2017}. This has motivated efforts to optimize the power efficiency in this architecture while retaining recognition performance. A first topic of interest is exploring the FPGA parallelism, implementing a pipelined computational method for the processing in convolutional layers, which are computation-intensive as done by \textcite{Sun2017}. The high sparsity present in the neurons and weights of popular neural networks such as AlexNet, VGG and ResNet can be used, since sparse matrices require less multiplications than dense matrices~\cite{Nurvitadhi2017_1}. Fewer multiplications imply a lesser use of FPGA resources, resulting in lower power consumption. Another potential method to reduce multiplications is to reduce some redundant operations that happens on the convolutional layers, as suggested  by~\textcite{Ujiie2016}, so only the fundamental operations that affect the final result are executed. The use of binary and ternary data formats, instead of floating-point representation, is also a trend for increasing efficiency of CNNs due to the smaller memory space of the coefficients and the simpler arithmetic operations of these notations~\cite{Courbariaux2016c, NIPS2016_6573, Venkatesh2017}. The use of these compact data types introduces irregular parallelisms which are better mapped to FPGAs than GPUs~\cite{Nurvitadhi2017_1}.
 
-% Ligar com o texto dos objetivos explicando como é feito o controle atualmente em lavouras organicas.
-% Hoje, o produtor contrata um ser humano pra ir de tempos em tempos lá e cortar manualmente. O que acontece é que a lavoura de cana de acucar é agressiva para o ser humano, oferencendo riscos como cortes, fogo, animais peconhentos, etc. A ideia final é identificar remotamente os cipos para que o corte possa ser feito somente quando necessario, preferencialmente por um equipamento autonomo.
-% Nas lavouras organicas nao pode-se entrar com maquinario pesado pois o solo é "vivo", com uma microfauna importante para manutençao da lavoura. As maquinas pesadas danificam este ambiente e são consideradas inadequadas para o cultivo organico. Todo maquinario, emsmo leve, é preparado para não compactar o solo.
-% Robos agricolas não sao adequados para supervisao remota pois dependem de bateria e a comunicacao é precaria por causa da presenca de agua (nas canas de acucar).
+% Estes esforços pela busca da eficiência de potência em CNNs e os consequentes benefícios que isto acarretaria para aplicações com recursos energéticos limitados ou com necessidade de eficiência energética inspirou este projeto, que tem como objetivo estudar de forma objetiva utilizar estas tendências na implementação energéticamente eficiente de redes neurais convolucionais em FPGAs.
 
-%  O controle de pragas nestas plantações organicas é feito através do uso de mão de obra humana, onde um trabalhador contratado percorre a plantação periodicamente para lidar com elas manualmente. No caso do cipó textit{Ipomoea grandifolia}, erva daninha que atinge a cana-de-açúcar, o trabalhador procura uma flor branca característica do cipó, cortando-a ao encontrar. Contudo, tais ambientes de plantação são agressivos ao ser humano, oferecendo riscos como animais peçonhentos, cortes e fogo. A ideia deste projeto é identificar o cipó remotamente para que as intervenções na plantação sejam feitas apenas quando necessário, de preferência por um equipamento autônomo.
+These efforts to search for power efficiency in CNNs have inspired this project, which aims to analyse and use these trends in the pursue for a power efficient implementation of CNNs in FPGAs. This will be applied in the development of an image recognition system of an autonomous robot. This will be used in organic sugarcane farms to identify the \textit{Ipomoea grandifolia} vine, a weed present in these plantations, illustrated in \autoref{fig:ipomoea}. Such application is a
 
-  Pest control in these organic plantations is done through the use of human labour, where a hired worker periodically traverses the plantation to deal with them manually. In the case of the \textit{Ipomoea grandifolia}, a weed that affects sugarcane, the worker searches for a flower characteristic of the vine, illustrated on \autoref{fig:ipomoea}, cutting it when found. However, such planting environments are aggressive to humans, posing hazards such as venomous animals, cuts and fire. The idea of this project is to identify the vine remotely so that the interventions in the plantation are made only when necessary, preferably by an autonomous equipment.
+% Falar da importancia do agronegocio (o quanto ele representa do pib), o quanto a cana de acucar representa pro agro negocio (talvez falar em numeros), e citar que esforcos deste tipo tendem a permitir uso das tecnologias de CNN nao apenas neste setor, mas em diversas outras areas. Dizer que o estudo pode dar Maior independência dos dispositivos de reconhecimento de imagem (rede de internet movel, HW caro, alto consumo energético)
+
+% Tal aplicação se mostra como uma das soluções mais víaveis para o problema, dado que o uso de herbicidas não é possível em plantações orgânicas, que o ambiente da hostil da plantação não favorece intervenção de trabalhadores humanos , e que processamento remoto das imagens obtidas é inviável por conta da comunicação sem fio precária por conta da humidade do ar intrínseca das plantações. Sendo assim, o reconhecimento de imagem tem de ser feito in loco, com o menor consumo enegético possível para aumentar a autonomia do sistema como um todo.
+
+This application is shown as one of the most viable solutions to the problem, given that the use of herbicides is not possible in organic plantations, that the hostile environment of the plantation does not favor the intervention of human workers, and that remote processing of the images obtained is impracticable as a result of the poor wireless communication due the intrinsic air humidity of the plantations. Therefore, image recognition has to be done \textit{in loco}, with the lowest power consumption possible to increase the autonomy of the whole system.
 
 \begin{figure}[htb]
   \caption{\label{fig:ipomoea}\textit{Ipomoea grandifolia} vine}
@@ -288,12 +294,12 @@ mymilestone right shift=0pt
   \legend{Source: \cite{corda_viola_agrolink}}
 \end{figure}
 
-
-%  Nas lavouras orgânicas a utilização de maquinário pesado também não é possível, pois a utilização destes afetam uma microfauna presente no solo que é importante para a manutenção da lavoura. Máquinas pesadas danificam este ambiente e são inadequadas para o cultivo orgânico. Todo maquinário, mesmo leve, é preparado para não compactar o solo. Neste contexto, robôs agrícolas não são adequados para supervisão remota por dependerem de uma bateria, cuja autonomia é limitada, e pela comunicação precária entre robô e central de processamento por conta da presença de água (da cana de açucar) no meio.
-
-  In organic farming the use of heavy machinery is also not possible as it affects a micro fauna present in the soil, which is important for the maintenance of the crop. Heavy machinery damages this environment and is unsuitable for organic farming. All machinery, even light one, is prepared not to compact the soil. In this context, agricultural robots are not suitable for remote supervision because they depend on a battery, whose autonomy is limited, and the poor communication between robot and processing centre due to the presence of water (of sugarcane) in the medium.
-
-  This project proposes to implement a convolutional neural network in an FPGA in order to perform the image recognition of the \textit{Ipomoea grandifolia} vine, seeking to provide an effective and energy efficient solution for the problem.
+%Introduce the area of research
+%Review key publications
+%Identify any gap in the knowledge or questions which have to be answered
+%Your hypotheses
+%Your aims and objectives, including a brief description of the methodology
+%How is your research beneficial and to whom
 
 \chapter[Objectives]{Objectives}
 
