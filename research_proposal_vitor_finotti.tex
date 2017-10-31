@@ -71,6 +71,7 @@
 \usepackage{rotating}
 \usepackage[graphicx]{realboxes}
 \usepackage{csquotes} % for babel
+\usepackage{ragged2e} % provides \RaggedLeft
 % ---
 
 % ---
@@ -149,37 +150,6 @@
 % ---
 \makeindex
 % ---
-
-% ---
-% Configurações do Gráfico de Gantt
-% ---
-\newganttchartelement*{mymilestone}{
-mymilestone/.style={
-shape=isosceles triangle,
-inner sep=0pt,
-draw=cyan,
-top color=white,
-bottom color=cyan!50
-},
-mymilestone incomplete/.style={
-/pgfgantt/mymilestone,
-draw=yellow,
-bottom color=yellow!50
-},
-mymilestone label font=\slshape,
-mymilestone left shift=0pt,
-mymilestone right shift=0pt
-}
-
-\newgantttimeslotformat{stardate}{%
-\def\decomposestardate##1.##2\relax{%
-\def\stardateyear{##1}\def\stardateday{##2}%
-}%
-\decomposestardate#1\relax%
-\pgfcalendardatetojulian{\stardateyear-01-01}{#2}%
-\advance#2 by-1\relax%
-\advance#2 by\stardateday\relax%
-}
 
 % ----
 % Início do documento
@@ -387,33 +357,58 @@ Once the neural network is fully trained and tested, the implementation on hardw
 \end{adjustbox}
 \end{landscape}
 
-
 \begin{landscape}
-\begin{ganttchart}[vgrid, hgrid]{1}{36}
-\gantttitle{2017}{12}
-\gantttitle{2018}{12}
-\gantttitle{2019}{12}\\
-% \gantttitlelist{1,...,36}{1}\\
-\gantttitlelist{1,2,3,4,5,6,7,8,9,10,11,12,1,2,3,4,5,6,7,8,9,10,11,12,1,2,3,4,5,6,7,8,9,10,11,12}{1}\\
-%First Group
-\ganttgroup{Disciplines}{9}{24} \\
-\ganttbar{Discipline 1}{9}{12} \\
-\ganttbar{Discipline 2}{9}{12} \\
-\ganttbar{Discipline 3}{13}{17} \\
-\ganttbar{Discipline 4}{18}{20} \\
-\ganttbar{Discipline 5}{21}{24} \\
-%\ganttlink{elem0}{elem1}
-%\ganttlink{elem1}{elem1}
-%\ganttlink{elem2}{elem3}
-\ganttmilestone{Qualification}{24} \\
-%Second Group
-\ganttgroup{Research}{9}{32} \\
-\ganttbar{Task 1}{15}{18} \\
-\ganttbar{Task 2}{18}{21} \\
-\ganttbar{Task 3}{22}{24}\\
-\ganttlink{elem8}{elem9}
-\ganttlink{elem9}{elem10}
-%\ganttmilestone{Milestone 1}{11}
+  \begin{ganttchart}[vgrid={draw=none,draw=none},%
+      % today=15,%
+      % today offset=.5,%
+      % today label=Heute,%
+      % progress=today,%
+      x unit=0.6cm,
+      y unit title=0.7cm,
+      y unit chart=0.55cm,
+      bar incomplete/.append style={fill=red},%
+      progress label text=  {\quad\pgfmathprintnumber[precision=0,verbatim]{#1}\%},%
+      % progress label font=\tiny,
+      % milestone label font=\tiny,
+      % group label font=\tiny,
+      % title label font=\tiny
+      % bar label node/.style={text width=3cm,align=right,font=\scriptsize\RaggedLeft,anchor=east},
+      % milestone label node/.style={text width=2cm,align=right,font=\scriptsize\RaggedLeft,anchor=east},
+      % group label node/.style={text width=3cm,align=right,font=\scriptsize\RaggedLeft,anchor=east}
+      ]{1}{24}
+    \gantttitlecalendar*[compress calendar,time slot format=isodate]{2017-09-1}{2019-08-31}{year, month} \\
+    \gantttitlelist{1,...,24}{1}\\
+    \ganttgroup{Total Duration}{1}{24} \\
+    %%%%%%%%%%%%%%%%% Disciplines
+    \ganttgroup{Disciplines}{1}{16} \\
+    \ganttbar{Discipline 1}{1}{4} \\
+    \ganttbar{Discipline 2}{1}{4} \\
+    \ganttlinkedbar{Discipline 3}{5}{9} \ganttnewline
+    \ganttlinkedbar{Discipline 4}{10}{12} \ganttnewline
+    \ganttlinkedbar{Discipline 5}{13}{16} \ganttnewline
+    %%%%%%%%%%%%%%%%% Phase-1
+    \ganttgroup{Phase 1}{1}{4} \\
+    \ganttbar{Scope Reading}{1}{1} \\
+    \ganttlinkedbar{Initial Literature Review}{2}{4} \ganttnewline
+    %\ganttlinkedbar{Define Scope of Review}{3}{3} \ganttnewline
+    %\ganttlinkedbar{Definition of Research Problem}{3}{3} \ganttnewline
+    \ganttlinkedbar{Research Proposal Writing}{4}{4} \ganttnewline
+    %%%%%%%%%%%%%%%%% Phase-2
+    \ganttgroup{Phase 2}{5}{16} \\
+    \ganttbar{Solver Analysis $\&$ Formulation}{5}{10} \\
+    \ganttlinkedbar{Development of source code}{10}{11} \ganttnewline
+    \ganttlinkedbar{Purchase Equipment}{11}{13} \ganttnewline
+    \ganttlinkedbar{Design Experimental Procedure}{13}{15} \ganttnewline
+    \ganttlinkedbar{Run Experiments}{15}{16} \ganttnewline
+    \ganttlinkedbar{Analysis of Experimental Data}{16}{19} \ganttnewline
+    \ganttmilestone{Qualification Exam}{13} \\
+    %%%%%%%%%%%%%%%%% Phase-3
+    \ganttgroup{Phase 3}{17}{24} \\
+    \ganttbar{Solving Validation and Conclusion}{17}{27} \\
+    \ganttlinkedbar{Publications $\&$ Workshops}{27}{30} \ganttnewline
+    \ganttlinkedbar{Defence of Study Work}{30}{33} \ganttnewline
+    \ganttlinkedbar{Thesis Writing}{33}{36} \ganttnewline
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \end{ganttchart}
 \end{landscape}
 
